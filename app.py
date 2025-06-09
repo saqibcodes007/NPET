@@ -147,7 +147,7 @@ def cleanup_temp_files():
         except Exception as e:
             print(f"Failed to remove temp file {temp_path}: {e}")
 
-atexit.register(cleanup_temp_files)
+# atexit.register(cleanup_temp_files)
 
 # Optionally, clean up old temp files from previous runs (older than 1 day)
 def periodic_temp_cleanup():
