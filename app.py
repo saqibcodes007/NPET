@@ -14,8 +14,9 @@ import glob
 
 # Initialize Flask App
 app = Flask(__name__)
+
 # Secret key is needed for session management (to store the output file path)
-app.secret_key = os.urandom(24) 
+app.secret_key = os.environ.get('SECRET_KEY', 'a_secure_fallback_key_for_development')
 
 # --- Tebra API Configuration ---
 TEBRA_WSDL_URL = "https://webservice.kareo.com/services/soap/2.1/KareoServices.svc?singleWsdl"
