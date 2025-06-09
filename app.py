@@ -234,59 +234,59 @@ def index():
         processed_df['Case ID'] = results_df['CaseIDs'].fillna('N/A')
         processed_df['Error/Results'] = results_df['Error'].fillna('Unknown Error')
         
-        # output_buffer = io.BytesIO()
-        # processed_df.to_excel(output_buffer, index=False, sheet_name='Tebra_Creation_Results')
-        # output_buffer.seek(0)
+        output_buffer = io.BytesIO()
+        processed_df.to_excel(output_buffer, index=False, sheet_name='Tebra_Creation_Results')
+        output_buffer.seek(0)
 
-        # # Save to a temp file and store the filename in the session
-        # temp_dir = tempfile.gettempdir()
-        # unique_filename = f"tebra_output_{uuid.uuid4().hex}.xlsx"
-        # temp_path = os.path.join(temp_dir, unique_filename)
-        # with open(temp_path, 'wb') as f:
-        #     f.write(output_buffer.getvalue())
-        # session['output_file_path'] = temp_path
-        # TEMP_FILES.add(temp_path)
+        # Save to a temp file and store the filename in the session
+        temp_dir = tempfile.gettempdir()
+        unique_filename = f"tebra_output_{uuid.uuid4().hex}.xlsx"
+        temp_path = os.path.join(temp_dir, unique_filename)
+        with open(temp_path, 'wb') as f:
+            f.write(output_buffer.getvalue())
+        session['output_file_path'] = temp_path
+        TEMP_FILES.add(temp_path)
 
         final_results_for_html = processed_df.to_dict(orient='records')
-        session['final_results'] = final_results_for_html 
+        # session['final_results'] = final_results_for_html 
         return render_template('index.html', results=final_results_for_html)
     return render_template('index.html', results=None)
 
-# @app.route('/download')
-# def download_file():
-#     """Provides the generated Excel file for download."""
-#     output_file_path = session.get('output_file_path')
-#     if not output_file_path or not os.path.exists(output_file_path):
-#         return "No file to download. Please process a file first.", 404
-#     return send_file(
-#         output_file_path,
-#         as_attachment=True,
-#         download_name='tebra_output.xlsx',
-#         mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-#     )
-
 @app.route('/download')
 def download_file():
-    """Generates the Excel file on-the-fly from session data for download."""
-    results_data = session.get('final_results')
-
-    if not results_data:
+    """Provides the generated Excel file for download."""
+    output_file_path = session.get('output_file_path')
+    if not output_file_path or not os.path.exists(output_file_path):
         return "No file to download. Please process a file first.", 404
-
-    # Create a new DataFrame from the session data
-    results_df = pd.DataFrame(results_data)
-
-    # Generate the Excel file in memory
-    output_buffer = io.BytesIO()
-    results_df.to_excel(output_buffer, index=False, sheet_name='Tebra_Creation_Results')
-    output_buffer.seek(0)
-
     return send_file(
-        output_buffer,
+        output_file_path,
         as_attachment=True,
         download_name='tebra_output.xlsx',
         mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
     )
+
+# @app.route('/download')
+# def download_file():
+#     """Generates the Excel file on-the-fly from session data for download."""
+#     results_data = session.get('final_results')
+
+#     if not results_data:
+#         return "No file to download. Please process a file first.", 404
+
+#     # Create a new DataFrame from the session data
+#     results_df = pd.DataFrame(results_data)
+
+#     # Generate the Excel file in memory
+#     output_buffer = io.BytesIO()
+#     results_df.to_excel(output_buffer, index=False, sheet_name='Tebra_Creation_Results')
+#     output_buffer.seek(0)
+
+#     return send_file(
+#         output_buffer,
+#         as_attachment=True,
+#         download_name='tebra_output.xlsx',
+#         mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+#     )
 
 if __name__ == '__main__':
     app.run(debug=True)
