@@ -138,6 +138,7 @@ def create_minimal_patient_with_default_case(client, header, patient_data):
 TEMP_FILES = set()
 
 def cleanup_temp_files():
+    print("DEBUG: Cleanup function has been triggered.")
     for temp_path in list(TEMP_FILES):
         try:
             if os.path.exists(temp_path):
@@ -244,6 +245,7 @@ def index():
         temp_path = os.path.join(temp_dir, unique_filename)
         with open(temp_path, 'wb') as f:
             f.write(output_buffer.getvalue())
+        print(f"DEBUG: File successfully created at {temp_path}")
         session['output_file_path'] = temp_path
         TEMP_FILES.add(temp_path)
 
@@ -256,8 +258,10 @@ def index():
 def download_file():
     """Provides the generated Excel file for download."""
     output_file_path = session.get('output_file_path')
+    print(f"DEBUG: Download triggered. Attempting to access path: {output_file_path}")
     if not output_file_path or not os.path.exists(output_file_path):
         return "No file to download. Please process a file first.", 404
+    print(f"DEBUG: File found at {output_file_path}. Preparing for download.")
     return send_file(
         output_file_path,
         as_attachment=True,
