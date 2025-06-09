@@ -1,0 +1,6 @@
+flask
+pandas
+openpyxl
+zeep
+pytz
+python-dateutil
