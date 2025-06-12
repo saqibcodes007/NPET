@@ -108,5 +108,3 @@ This project is licensed under the MIT License.
   <br>
   Copyright © 2025 • All Rights Reserved
 </p>
-
-Copyright © 2025. All Rights Reserved.
