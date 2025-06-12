@@ -103,6 +103,10 @@ Pull requests are welcome! Please open an issue first to discuss your proposed c
 This project is licensed under the MIT License.
 
 ---
-Developed by Saqib Sherwani
+<p align="center">
+  Developed by Saqib Sherwani
+  <br>
+  Copyright © 2025 • All Rights Reserved
+</p>
 
 Copyright © 2025. All Rights Reserved.
