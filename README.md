@@ -1,75 +1,108 @@
-# NPET - New Patient Entry in Tebra
+# NPET (New Patient Entry in Tebra)
 
-NPET is a Flask web application that allows users to upload Tebra credentials and an Excel file containing new patient data, then creates those patients in the Tebra Practice Management System (PMS).
-
-## Features
-- Securely upload Tebra credentials and patient Excel files
-- Automatic mapping and validation of required columns
-- Batch creation of patients in Tebra PMS
-- Downloadable results Excel file with patient creation status
-- Modern, responsive UI with Bootstrap
-
-## Requirements
-- Python 3.11+
-- pip
-- (Recommended) Virtual environment
-
-## Setup Instructions
-
-### 1. Clone the Repository
-```powershell
-git clone https://github.com/saqibcodes007/NPET.git
-cd NPET
-```
-
-### 2. Create and Activate a Virtual Environment
-```powershell
-python -m venv .venv
-.venv\Scripts\Activate
-```
-
-### 3. Install Dependencies
-```powershell
-pip install -r requirements.txt
-```
-
-### 4. Run the Application Locally
-```powershell
-python app.py
-```
-
-The app will be available at [http://127.0.0.1:5000](http://127.0.0.1:5000).
-
-## Usage
-1. Open the app in your browser.
-2. Enter your Tebra credentials (Customer Key, Username, Password).
-3. Upload an Excel file with columns: Practice, First Name, Last Name, DOB, Gender.
-4. Click "Create Patients in Tebra".
-5. Download the output Excel file with results.
-
-## Deployment to Azure
-
-### Using Azure Portal and GitHub Actions
-1. Push your code to a GitHub repository.
-2. Create an Azure App Service (Python stack) via the Azure Portal.
-3. In the App Service, go to **Deployment Center** and connect your GitHub repo.
-4. Azure will generate a GitHub Actions workflow for CI/CD (see `.github/workflows`).
-5. Add your App Service publish profile as a secret in your GitHub repo (`AZUREAPPSERVICE_PUBLISHPROFILE`).
-6. Set your Flask secret key in the Azure Portal as an environment variable:  
-   - Key: `SECRET_KEY`
-   - Value: *(your secret key)*
-7. Push to `main` to trigger deployment.
-
-**Note**: The application uses Gunicorn for production environments.
-
-## Security
-- Credentials are not stored; they are used only for the session.
-- Output Excel files are stored as temporary files and are only available for download within a session.
-- Periodic cleanup removes old temporary files automatically.
-- Set your Flask `SECRET_KEY` via environment variable for production security.
-
-## License
-MIT License
+NPET is a Python (Flask) application designed to streamline the process of bulk uploading new patient data into Tebra (formerly Kareo) using Excel files. It offers robust data handling, user-friendly file processing, and a production-ready architecture.
 
 ---
-Developed by Saqib Sherwani | Panacea Smart Solutions
+
+## Recent Changes (v2.0 Highlights)
+
+> _Note: For a complete list of updates, see the [commit history](https://github.com/saqibcodes007/NPET/commits?per_page=5&sort=author-date&order=desc). This summary may be incomplete due to API limits._
+
+- **Expanded Patient Data Support**
+  - Now supports 9 new optional fields in addition to the 5 required ones:
+    - Address, City, State, Zip Code, Email Address, Social Security Number (SSN), Medical Record Number (MRN), Mobile Phone, Home Phone
+
+- **Improved File Processing**
+  - Flexible column mapping: Accepts various common names for each field (e.g., 'DOB', 'Date of Birth', etc.)
+  - Automatic parsing of multiple date formats for DOB (`MM/DD/YYYY`, `MM-DD-YYYY`, etc.)
+  - Graceful handling of missing columns or empty cells for optional fields
+  - UI instructions updated to reflect new optional columns
+
+- **Production-Ready Improvements**
+  - Gunicorn support added for robust multi-user production deployments
+  - File download logic and session management refined for stability
+  - Temporary file cleanup logic refined to prevent premature deletion
+
+- **Documentation**
+  - README and UI documentation updated to reflect new features and field options
+
+---
+
+## Features
+
+- Upload Excel files to create multiple patients at once in Tebra
+- Automatic detection of required and optional columns
+- Detailed output with results and error messages per patient
+- Simple web interface
+
+---
+
+## Getting Started
+
+### Prerequisites
+
+- Python 3.8+
+- `pip` (Python package manager)
+
+### Installation
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/saqibcodes007/NPET.git
+   cd NPET
+
+2.  **Create and activate a virtual environment (recommended):**
+
+    ```bash
+    python -m venv venv
+    source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+3. **Install dependencies:**
+
+   ```bash
+   pip install -r requirements.txt
+
+### Running Locally
+
+1. Set your environment variables for Tebra API credentials (see .env.example for guidance).
+
+2.  Start the Flask development server:
+
+      ```bash
+      flask run
+      Open your browser and go to http://localhost:5000
+
+### Usage
+
+1.  **Prepare Your Excel File** Create an `.xlsx` file with your patient data. It must contain at least the following required columns:
+    * `First Name`
+    * `Last Name`
+    * `Date of Birth (DOB)`
+    * `Gender`
+    * `Primary Insurance`
+
+2.  **(Optional) Include Additional Data** You can also include any of the following supported optional columns for more detailed patient profiles:
+    * `Address`
+    * `City`
+    * `State`
+    * `Zip Code`
+    * `Email`
+    * `SSN`
+    * `MRN`
+    * `Mobile Phone`
+    * `Home Phone`
+
+3.  **Upload and Process** Use the web interface to upload your prepared Excel file.
+
+4.  **Download Results** After processing, download the results file, which will contain the status for each patient, including any error details.
+
+## Contributing
+Pull requests are welcome! Please open an issue first to discuss your proposed change.
+
+## License
+This project is licensed under the MIT License.
+
+---
+Developed by Saqib Sherwani
+
+Copyright © 2025. All Rights Reserved.
