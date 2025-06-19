@@ -5,3 +5,4 @@ zeep
 pytz
 python-dateutil
 gunicorn
+pgeocode
