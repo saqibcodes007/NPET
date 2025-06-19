@@ -15,43 +15,28 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <style>
-        /* --- Custom Futuristic Theme --- */
         :root {
             --primary-glow: #00aaff;
-            --secondary-glow: #e000ff; /* Added a magenta accent from the logo */
+            --secondary-glow: #e000ff;
             --background-dark: #1a1a1a;
             --surface-dark: #2c2c2c;
             --border-color: #444;
         }
-
         body {
             font-family: 'Poppins', sans-serif;
             background-color: var(--background-dark);
             padding-top: 3rem;
             padding-bottom: 3rem;
         }
-
-        .container {
-            max-width: 960px;
-        }
-        
-        /* --- MODIFIED: New styles for the header/logo --- */
+        .container { max-width: 960px; }
         .header-container {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 1.5rem; /* Space between logo and text */
+            gap: 1.5rem;
         }
-
-        .logo-img {
-            width: 70px; /* Control the size of the logo */
-            height: auto;
-        }
-
-        .title-block {
-            text-align: left;
-        }
-
+        .logo-img { width: 70px; height: auto; }
+        .title-block { text-align: left; }
         .title-text {
             font-size: 4rem;
             font-weight: 700;
@@ -60,25 +45,15 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
             color: transparent;
-            margin-bottom: 0.5rem;
             text-shadow: 0 0 10px rgba(0, 170, 255, 0.5), 0 0 20px rgba(224, 0, 255, 0.5);
-            font-family: 'Poppins', sans-serif;
-            font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 2px;
             text-align: center;
-            display: inline-block;  
             padding: 0;
             margin: 0;
             line-height: 1.1;
         }
-
-        .subtitle-text {
-            font-size: 1.1rem;
-            color: #aaa;
-            letter-spacing: 0.5px;
-        }
-        
+        .subtitle-text { font-size: 1.1rem; color: #aaa; letter-spacing: 0.5px; }
         .card {
             background-color: var(--surface-dark);
             border: 1px solid var(--border-color);
@@ -86,67 +61,17 @@
             margin-bottom: 2rem;
             box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
         }
-
-        .card-header {
-            background-color: rgba(0,0,0,0.2);
-            font-weight: 600;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .form-control {
-            background-color: #333;
-            border: 1px solid var(--border-color);
-            color: #fff;
-        }
-
-        .form-control:focus {
-            background-color: #333;
-            border-color: var(--primary-glow);
-            box-shadow: 0 0 10px var(--primary-glow);
-            color: #fff;
-        }
-        
-        .btn-primary {
-            background: linear-gradient(45deg, #0077b3, var(--primary-glow));
-            border: none;
-            font-weight: 600;
-            padding: 12px;
-            transition: all 0.3s ease;
-        }
-
-        .btn-primary:hover, .btn-primary:focus {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(0, 170, 255, 0.4);
-        }
-
-        .spinner-border { 
-            display: none;
-        }
-        
-        .processing .spinner-border { 
-            display: inline-block; 
-        }
-
-        .processing .btn-text {
-            display: none;
-        }
-
-        .table {
-            --bs-table-bg: var(--surface-dark);
-            --bs-table-border-color: var(--border-color);
-            --bs-table-striped-bg: #333;
-        }
-        
-        .table-dark th {
-             background-color: #000;
-        }
-
-        .footer {
-            padding: 2rem 0;
-            margin-top: 3rem;
-            font-size: 0.9rem;
-            color: #888;
-        }
+        .card-header { background-color: rgba(0,0,0,0.2); font-weight: 600; border-bottom: 1px solid var(--border-color); }
+        .form-control { background-color: #333; border: 1px solid var(--border-color); color: #fff; }
+        .form-control:focus { background-color: #333; border-color: var(--primary-glow); box-shadow: 0 0 10px var(--primary-glow); color: #fff; }
+        .btn-primary { background: linear-gradient(45deg, #0077b3, var(--primary-glow)); border: none; font-weight: 600; padding: 12px; transition: all 0.3s ease; }
+        .btn-primary:hover, .btn-primary:focus { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(0, 170, 255, 0.4); }
+        .spinner-border { display: none; }
+        .processing .spinner-border { display: inline-block; }
+        .processing .btn-text { display: none; }
+        .table { --bs-table-bg: var(--surface-dark); --bs-table-border-color: var(--border-color); --bs-table-striped-bg: #333; }
+        .table-dark th { background-color: #000; }
+        .footer { padding: 2rem 0; margin-top: 3rem; font-size: 0.9rem; color: #888; }
     </style>
 </head>
 <body>
@@ -184,11 +109,11 @@
                     <h5 class="mb-3"><i class="fas fa-file-excel me-2"></i>Step 2: Upload Patient Excel File</h5>
                     <div class="mb-3">
                          <p class="small text-muted">
-                            - Ensure your Excel file has the required columns: <strong>Practice, First Name, Last Name, DOB, Gender</strong>.
+                            - Required columns: <strong>Practice, First Name, Last Name, DOB, Gender</strong>.
                             <br>
-                            - Optional columns are also supported: <strong>Address, City, State, Zip Code, Email Address, Social Security Number (SSN), Medical Record Number (MRN), Mobile Phone, Home Phone</strong>.
+                            - Optional columns: <strong>Address, Zip Code, Email, SSN, MRN, Mobile Phone, Home Phone</strong>.
                             <br>
-                            - The column order does not matter.
+                            - City and State will be found automatically using the Zip Code.
                         </p>
                         <label for="patient_file" class="form-label">Patient File (.xlsx)</label>
                         <input class="form-control" type="file" id="patient_file" name="patient_file" accept=".xlsx" required>
@@ -204,9 +129,7 @@
 
         {% if results %}
         <div class="card">
-            <div class="card-header">
-                Processing Results
-            </div>
+            <div class="card-header">Processing Results</div>
             <div class="card-body">
                 <p>The system has finished processing the uploaded file. You can see the results below.</p>
                 <a href="{{ url_for('download_file') }}" class="btn btn-success mb-3" id="download-btn">
@@ -239,7 +162,7 @@
 
     <footer class="footer text-center">
         <div class="container">
-            <span>NPET © 2024 | Panacea Smart Solutions | Developed by Saqib Sherwani | Copyright © 2025. All rights reserved.</span>
+            <span>NPET © 2025 | Panacea Smart Solutions | Developed by Saqib Sherwani | Copyright © 2025. All rights reserved.</span>
         </div>
     </footer>
 
